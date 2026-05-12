@@ -3,6 +3,7 @@ from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter as TextSplit
 from langchain_chroma.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from dotenv import load_dotenv
 
 # Carregando a .env
@@ -40,7 +41,12 @@ def dividirChunks(docs):
     return chunks
 
 def vetorizarChunks(chunks):
-    db = Chroma.from_documents(chunks, OpenAIEmbeddings(), persist_directory="database")
+    embedding = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
+
+    # db = Chroma.from_documents(chunks, OpenAIEmbeddings(), persist_directory="database")
+    db = Chroma.from_documents(chunks, embedding, persist_directory="database")
     print("Banco de dados Criado!")
 
 createDatabase()

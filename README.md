@@ -1,8 +1,8 @@
 # ChatBot-RAG-Regulamento-ECT-UFRN
 
 ## Instalar bibliotecas necessárias: 
-```shel
+```shell
 
-pip install python-dotenv langchain langchain-openai langchain-community langchain-chroma chromadb openai pypdf
+pip install python-dotenv langchain langchain-openai langchain-community langchain-chroma chromadb openai pypdf langchain-huggingface sentence-transformers
 
 ```
