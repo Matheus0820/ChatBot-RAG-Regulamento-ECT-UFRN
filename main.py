@@ -13,13 +13,14 @@ PATH_DATABASE = 'database'
 
 # Criando um prompt template 
 template_prompt = """
-Responda a seguinte pergunta do aluno de C&T de forma fácil de ser entendida. Pergunta:
+Responda a seguinte pergunta do aluno de C&T de forma fácil de ser entendida. 
+Pergunta:
 {question}
 
 Responda ela com base nesses dados:
 {data_result}
 
-Caso não saiba responder a pergunta, ou seja, não achar uma resposta para a pergunta do aluno, responda que não sabe responder no momento.
+Caso não saiba responder a pergunta, ou seja, não achar uma resposta para a pergunta do aluno, responda que não sabe responder no momento ou dê uma breve resposta
 """
 
 
