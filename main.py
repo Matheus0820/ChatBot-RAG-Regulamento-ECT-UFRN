@@ -62,7 +62,14 @@ def questionFunction():
     # Mandando o prompt para a LLM
     model = ChatGroq(model="llama-3.3-70b-versatile")
     response_model = model.invoke(prompt)
-    print(response_model.content)
+
+    print(f"""
+{'=' * 30}
+Resposta do modelo:
+{'=' * 30}
+{response_model.content}
+{'=' * 30}
+    """)
 
 
 questionFunction()
