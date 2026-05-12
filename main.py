@@ -13,14 +13,22 @@ PATH_DATABASE = 'database'
 
 # Criando um prompt template 
 template_prompt = """
-Responda a seguinte pergunta do aluno de C&T de forma fácil de ser entendida. 
-Pergunta:
+Você é um tutor virtual para alunos de Ciência e Tecnologia (C&T). Sua tarefa é responder perguntas de forma clara, simples e didática, facilitando o entendimento do aluno.
+
+Pergunta do aluno:
 {question}
 
-Responda ela com base nesses dados:
+Base de conhecimento (use estas informações para formular sua resposta, mas NÃO mencione que você recebeu esses dados ou qualquer fonte externa):
 {data_result}
 
-Caso não saiba responder a pergunta, ou seja, não achar uma resposta para a pergunta do aluno, responda que não sabe responder no momento ou dê uma breve resposta
+Instruções importantes:
+- Responda de forma objetiva e fácil de entender.
+- Explique como um professor explicando para um aluno iniciante.
+- Não mencione, em hipótese alguma, que você recebeu dados, documentos ou qualquer fonte externa.
+- Se a informação fornecida não for suficiente para responder com segurança, diga que não possui informações suficientes no momento e, se possível, dê uma resposta geral ou explicação parcial relacionada ao tema.
+- Evite respostas vazias; tente sempre ajudar dentro do possível.
+
+Resposta:
 """
 
 
@@ -32,7 +40,7 @@ def questionFunction():
 
     # Carregando o banco de dados
     embedding = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
+        model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     )
 
     database = Chroma(persist_directory=PATH_DATABASE, embedding_function=embedding)
@@ -58,6 +66,7 @@ def questionFunction():
     # Configurando o prompt template
     prompt = ChatPromptTemplate.from_template(template_prompt)
     prompt = prompt.invoke({"question": question, "data_result": data_result})
+    print(prompt) 
     
     # Mandando o prompt para a LLM
     model = ChatGroq(model="llama-3.3-70b-versatile")
