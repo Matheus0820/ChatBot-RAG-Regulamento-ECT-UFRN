@@ -1,17 +1,25 @@
-# Importando bibliotecas 
-from langchain_chroma.vectorstores import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_groq import ChatGroq
+import os
 from dotenv import load_dotenv
+from langchain_chroma.vectorstores import Chroma
+from langchain_ollama import OllamaEmbeddings, ChatOllama
+from langchain_groq import ChatGroq
+from langchain_core.prompts import ChatPromptTemplate
 
-# Carregando credenciais
+# Carregando credenciais e ambiente
 load_dotenv()
 
-# Caminho do base de dados
+# ==========================================
+# CONFIGURAÇÕES DO PROJETO
+# ==========================================
 PATH_DATABASE = 'database'
+EMBEDDING_MODEL = "mxbai-embed-large"
 
-# Criando um prompt template 
+# Escolha o modo de execução da LLM mudando para True ou False:
+USE_LOCAL_MODEL = False  # True = Ollama (Local) | False = Groq (Nuvem)
+
+# ==========================================
+# PROMPT TEMPLATE
+# ==========================================
 template_prompt = """
 Você é um tutor virtual para alunos de Ciência e Tecnologia (C&T). Sua tarefa é responder perguntas de forma clara, simples e didática, facilitando o entendimento do aluno.
 
@@ -31,54 +39,71 @@ Instruções importantes:
 Resposta:
 """
 
-
-# Função de processamento de pergunta
-
 def questionFunction():
     # Pedindo pergunta ao usuário 
-    question = input("Faça sua pergunta sobre o regulamento da ECT: ")
-
-    # Carregando o banco de dados
-    embedding = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    )
-
-    database = Chroma(persist_directory=PATH_DATABASE, embedding_function=embedding)
-
-    # Pegando o resultado do processamento
-    result_question = database.similarity_search_with_relevance_scores(question, k=3)
-
-    # Verificando os resultados
-    print(result_question[0][1])
-    if len(result_question) == 0 or result_question[0][1] < 0.2:
-        print("Para essa pergunta não conseguimos achar resultados relevantes")
+    question = input("Faça sua pergunta sobre o regulamento da ECT: ").strip()
+    if not question:
+        print("A pergunta não pode ser vazia.")
         return
 
+    try:
+        # Carregando o banco de dados e função de embedding
+        embedding = OllamaEmbeddings(model=EMBEDDING_MODEL)
+        database = Chroma(persist_directory=PATH_DATABASE, embedding_function=embedding)
 
-    # Tratanto resultado
-    listTextResult = []
-    for result in result_question:
-        text = result[0].page_content
-        listTextResult.append(text)
-    
-    data_result = "\n\n ---- \n\n".join(listTextResult)
+        # Configurando o buscador com MMR para mitigar falsos positivos
+        retriever = database.as_retriever(
+            search_type="mmr",
+            search_kwargs={'k': 3, 'fetch_k': 5, 'lambda_mult': 0.6}
+        )
+        
+        # Recuperando os documentos contextuais
+        result_question = retriever.invoke(question)
 
-    # Configurando o prompt template
-    prompt = ChatPromptTemplate.from_template(template_prompt)
-    prompt = prompt.invoke({"question": question, "data_result": data_result})
-    print(prompt) 
-    
-    # Mandando o prompt para a LLM
-    model = ChatGroq(model="llama-3.3-70b-versatile")
-    response_model = model.invoke(prompt)
+        # Verificando se algum resultado relevante foi retornado
+        if not result_question:
+            print("\nPara essa pergunta não conseguimos achar resultados relevantes no regulamento.")
+            return
 
-    print(f"""
-{'=' * 30}
-Resposta do modelo:
-{'=' * 30}
-{response_model.content}
-{'=' * 30}
-    """)
+        # Tratando e agrupando o conteúdo dos documentos
+        listTextResult = [doc.page_content for doc in result_question]
+        data_result = "\n\n ---- \n\n".join(listTextResult)
 
+        # Configurando e invocando o prompt template
+        prompt_template = ChatPromptTemplate.from_template(template_prompt)
+        prompt = prompt_template.invoke({"question": question, "data_result": data_result})
+        
+        # Seleção dinâmica do modelo (Groq ou Ollama) com suporte a streaming
+        if USE_LOCAL_MODEL:
+            print(" -> Processando resposta localmente via Ollama...")
+            model = ChatOllama(model="llama3.2:1b", temperature=0.2)
+        else:
+            print(" -> Processando resposta na nuvem via Groq...")
+            model = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2)
+            
+        # Exibição do cabeçalho estilizado no terminal ANTES da resposta começar
+        print(f"\n{Colors.GREEN}{'=' * 40}")
+        print("RESPOSTA DO TUTOR VIRTUAL:")
+        print(f"{'=' * 40}{Colors.RESET}")
 
-questionFunction()
+        # Gerando e imprimindo a resposta em tempo real (Streaming)
+        for chunk in model.stream(prompt):
+            # Capturamos o texto do conteúdo de forma segura.
+            content = chunk.content if hasattr(chunk, 'content') else str(chunk)
+            print(content, end="", flush=True)
+
+        print(f"\n\n{Colors.GREEN}{'=' * 40}{Colors.RESET}\n")
+
+    except ConnectionError:
+        print(f"\n{Colors.RED}Erro: Não foi possível conectar ao Ollama. Certifique-se de que o comando 'ollama serve' está rodando no terminal.{Colors.RESET}\n")
+    except Exception as e:
+        print(f"\n{Colors.RED}Ocorreu um erro inesperado: {e}{Colors.RESET}\n")
+
+# Classe auxiliar para colorir saídas de terminal
+class Colors:
+    GREEN = '\033[92m'
+    RED = '\033[91m'
+    RESET = '\033[0m'
+
+if __name__ == "__main__":
+    questionFunction()

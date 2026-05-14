@@ -4,6 +4,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter as TextSplit
 from langchain_chroma.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_ollama import OllamaEmbeddings
 from dotenv import load_dotenv
 import re
 
@@ -60,9 +61,13 @@ def dividirChunks(docs):
     return chunks
 
 def vetorizarChunks(chunks):
-    embedding = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    embedding = OllamaEmbeddings(
+        model="mxbai-embed-large"
     )
+
+    # embedding = HuggingFaceEmbeddings(
+    #     model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    # )
 
     # db = Chroma.from_documents(chunks, OpenAIEmbeddings(), persist_directory="database")
     db = Chroma.from_documents(chunks, embedding, persist_directory="database", collection_metadata={"hnsw:space": "cosine"})
