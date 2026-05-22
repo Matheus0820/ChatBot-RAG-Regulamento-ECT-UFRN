@@ -1,8 +1,40 @@
-# ChatBot-RAG-Regulamento-ECT-UFRN
+# ChatBot RAG - Regulamento ECT/UFRN
 
-## Instalar bibliotecas necessárias: 
-```shell
+Sistema de chatbot utilizando **RAG (Retrieval-Augmented Generation)** para responder perguntas relacionadas ao regulamento da Escola de Ciências e Tecnologia (ECT) da UFRN.
 
-pip install python-dotenv langchain langchain-openai langchain-community langchain-chroma chromadb openai pypdf langchain-huggingface sentence-transformers
+O projeto utiliza modelos de linguagem (LLMs), banco vetorial e recuperação semântica de documentos para fornecer respostas contextualizadas baseadas no regulamento institucional.
 
-```
+---
+
+# Objetivo do Projeto
+
+Este projeto foi desenvolvido para permitir consultas inteligentes ao regulamento da ECT/UFRN através de linguagem natural.
+
+Com a técnica de **RAG (Retrieval-Augmented Generation)**, o sistema:
+
+1. Recupera trechos relevantes do regulamento;
+2. Envia o contexto para um modelo de linguagem;
+3. Gera respostas contextualizadas e mais precisas.
+
+Esse tipo de arquitetura reduz alucinações do modelo e melhora a qualidade das respostas em domínios específicos.
+
+---
+
+# Tecnologias Utilizadas
+
+- Python
+- LangChain
+- ChromaDB
+- Ollama
+- Streamlit
+- FastAPI / Flask
+- Embeddings
+- Modelos LLM locais
+
+---
+
+# Estrutura do Projeto
+
+
+---
+
