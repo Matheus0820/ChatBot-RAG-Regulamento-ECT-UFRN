@@ -68,8 +68,8 @@ class ChatbotService:
             context_question = "Nenhum contexto encontrado."
 
         # Cria prompt
-        prompt = self.__prompt_build.getPrompt(
-            question,
+       prompt = self.__prompt_build.getPrompt(
+             question,
             context_question,
             history_user
         )
