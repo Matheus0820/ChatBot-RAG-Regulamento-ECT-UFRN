@@ -1,3 +1,5 @@
+from pathlib import Path
+
 # RAG
 from app.rag.pipeline import PipelineRag
 from app.rag.retriever import Retriever
@@ -13,7 +15,10 @@ class ChatbotService:
 
     def __init__(self):
 
-        PATH_DATABASE = "../database"
+        BASE_DIR = Path(__file__).resolve().parent.parent.parent
+        DB_DIR = BASE_DIR / "database"
+
+        PATH_DATABASE = str(DB_DIR)
         EMBEDDING_MODEL = "mxbai-embed-large"
         GROQ_MODEL = "llama-3.3-70b-versatile"
         SEARCH_TYPE = "mmr"
