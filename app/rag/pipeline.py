@@ -1,18 +1,32 @@
-from embeddings import Embedding
-from chunking import Chunking
-from vectorstore import Vectorstores
-from services.docs_read import DocsRead
+from app.rag.embeddings import Embedding
+from app.rag.chunking import Chunking
+from app.rag.vectorstore import Vectorstores
+from app.rag.docs_read import DocsRead
+
+from pathlib import Path
 
 class PipelineRag:
     def __init__(self):
-        # Variaveis essenciais
-        PATH_DATABASE = 'database'
-        EMBEDDING_MODEL = "mxbai-embed-large"
-        FOLDER_BASE_DADOS = "../../base_dados"
 
-        # Criando objetos e instanciando-os
-        self.docsRead = DocsRead(FOLDER_BASE_DADOS)
+        PATH_DATABASE = "database"
+        EMBEDDING_MODEL = "mxbai-embed-large"
+
+        # caminho absoluto correto
+        BASE_DIR = Path(__file__).resolve().parents[2]
+        FOLDER_BASE_DADOS = BASE_DIR / "base_dados"
+
+        # instâncias
+        self.docsRead = DocsRead(str(FOLDER_BASE_DADOS))
         self.embedding = Embedding(EMBEDDING_MODEL)
-        self.chunking = Chunking(800, 200, self.docsRead.load_txt_documents())
-        self.vectorstore = Vectorstores(self.chunking.getChunks, self.embedding.getEmbedding, PATH_DATABASE)
-    
+
+        self.chunking = Chunking(
+            800,
+            200,
+            self.docsRead.load_txt_documents()
+        )
+
+        self.vectorstore = Vectorstores(
+            self.chunking.getChunks(),
+            self.embedding.getEmbedding(),
+            PATH_DATABASE
+        )

@@ -1,9 +1,13 @@
 import yaml
+from pathlib import Path
 from langchain_core.prompts import ChatPromptTemplate
 
 class PromptBuild:
-    def __init__(self, path_prompts):
-        with open(path_prompts, "r", encoding="utf-8") as file:
+    def __init__(self):
+        base_dir = Path(__file__).resolve().parent
+        file_path = base_dir / "prompts.yaml"
+
+        with open(file_path, "r", encoding="utf-8") as file:
             self.prompts = yaml.safe_load(file)
 
         

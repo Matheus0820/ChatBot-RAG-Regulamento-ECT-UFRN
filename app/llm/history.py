@@ -1,6 +1,6 @@
-from database.chat_repository import ChatRepository
+from app.database.chat_repository import ChatRepository
 
-class HistoryService:
+class History:
 
     def __init__(self):
         self.chat_repository = ChatRepository()
@@ -40,3 +40,9 @@ class HistoryService:
             user_id,
             question
         )
+    
+    def getUserHistoryById(self, user_id):
+        history = self.chat_repository.findAllHistory(user_id=user_id)
+        return history
+
+        

@@ -5,7 +5,7 @@ from langchain_community.document_loaders import TextLoader
 class DocsRead:
     def __init__(self, folder_base_dados):
         self.folder_base_dados = folder_base_dados
-        
+
         self.read_docs = DirectoryLoader(
             self.folder_base_dados,
             glob="*.txt",
