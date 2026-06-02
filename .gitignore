@@ -10,3 +10,7 @@
 venv/
 env/
 ENV/
+
+# Python
+**/__pycache__/
+*.pyc

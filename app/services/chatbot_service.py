@@ -68,11 +68,7 @@ class ChatbotService:
             context_question = "Nenhum contexto encontrado."
 
         # Cria prompt
-       prompt = self.__prompt_build.getPrompt(
-             question,
-            context_question,
-            history_user
-        )
+        prompt = self.__prompt_build.getPrompt(question, context_question, history_user)
 
         # Gera resposta
         result_response_llm = self.__model_groq.getResponse(prompt)

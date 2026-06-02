@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 import streamlit as st
 
-ROOT_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(ROOT_DIR / ".env")
 
 sys.path.append(str(ROOT_DIR))

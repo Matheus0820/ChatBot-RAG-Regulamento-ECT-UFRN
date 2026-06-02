@@ -38,3 +38,46 @@ Esse tipo de arquitetura reduz alucinações do modelo e melhora a qualidade das
 
 ---
 
+# Rodando o projeto
+
+## Dependências 
+### Python
+```bash
+
+pip install -r requirements.txt
+
+```
+
+### Ollama
+#### Instalar o Ollama
+```bash
+
+curl -fsSL https://ollama.com/install.sh | sh
+
+```
+
+#### Execultar o Ollama
+```bash
+
+ollama serve
+
+```
+
+#### Baixando modelo necessário do Ollama
+```bash
+
+ollama pull mxbai-embed-large
+
+```
+
+### Configurando o .env
+A estrutura do **.env** ideal está no arquivo **.env.exemple**. Pegue a chave do GROQ no site da API do GROQ: https://console.groq.com/keys
+
+### Execultando o arquivo StreamLit do projeto (main)
+Na raiz do projeto rode o seguinte comando:
+
+```bash
+
+streamlit run ui/streamlit_app.py
+
+```

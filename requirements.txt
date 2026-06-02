@@ -12,3 +12,4 @@ sentence-transformers==5.4.1
 pypdf==6.11.0
 python-dotenv==1.2.2
 huggingface_hub==1.14.0
+streamlit==1.58.0
