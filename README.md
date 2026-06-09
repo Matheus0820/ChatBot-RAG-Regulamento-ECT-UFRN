@@ -26,15 +26,17 @@ Esse tipo de arquitetura reduz alucinações do modelo e melhora a qualidade das
 - LangChain
 - ChromaDB
 - Ollama
+- Groq
 - Streamlit
-- FastAPI / Flask
 - Embeddings
 - Modelos LLM locais
 
 ---
 
 # Estrutura do Projeto
+## Pasta de aplicação (app)
 
+## Pasta de integração com a interface WEB (ui)
 
 ---
 
