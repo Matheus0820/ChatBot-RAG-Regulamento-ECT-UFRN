@@ -1,0 +1,32 @@
+Índices acadêmicos (MC, IRA, IEA):
+Os índices acadêmicos da Universidade Federal do Rio Grande do Norte (UFRN) consistem
+em indicadores numéricos destinados a mensurar o rendimento acumulado do estudante ao
+longo de sua trajetória nos cursos de graduação. Conforme estabelecido no regulamento,
+existem quatro índices principais: a Média de Conclusão (MC), a Média de Conclusão
+Normalizada (MCN), o Índice de Eficiência Acadêmica (IEA) e o Índice de Eficiência
+Acadêmica Normalizado (IEAN). Esses indicadores desempenham papel fundamental em
+diversos processos acadêmicos, como a definição de prioridades de matrícula e a
+concessão de certificados de mérito acadêmico.
+A Média de Conclusão (MC) corresponde à média ponderada das notas finais obtidas nos
+componentes curriculares em que o estudante foi aprovado. Em seu cálculo, não são
+considerados componentes trancados, cancelados, reprovados, aproveitados, incorporados,
+dispensados ou aqueles cujo rendimento não seja expresso numericamente. Já a Média de
+Conclusão Normalizada (MCN) consiste na adequação estatística da MC do estudante em
+relação à média e ao desvio padrão das médias de conclusão dos egressos do mesmo
+curso nos últimos cinco anos, permitindo uma análise comparativa do desempenho em
+relação aos demais concluintes.
+Para o cálculo dos índices de eficiência, a universidade utiliza dois fatores específicos: o
+Fator de Eficiência em Carga Horária (FECH) e o Fator de Eficiência em Períodos Letivos
+(FEPL). O FECH representa o percentual da carga horária total em que o estudante
+efetivamente obteve aprovação, considerando no denominador tanto as reprovações quanto
+os componentes trancados. Já o FEPL mensura a velocidade de integralização curricular,
+sendo calculado pela razão entre a carga horária acumulada pelo estudante e a carga
+horária prevista para o número de períodos cursados, considerando a duração padrão do
+curso.
+O Índice de Eficiência Acadêmica (IEA) resulta do produto entre a Média de Conclusão
+(MC) e os dois fatores de eficiência, FECH e FEPL. De forma semelhante, o Índice de
+Eficiência Acadêmica Normalizado (IEAN) é obtido pela multiplicação da Média de
+Conclusão Normalizada (MCN) pelos mesmos fatores. Esses índices têm como objetivo
+equilibrar diferentes dimensões do desempenho acadêmico, contemplando não apenas a
+qualidade das notas obtidas, mas também a regularidade, a assiduidade e a celeridade com
+que o estudante progride em sua estrutura curricular.
