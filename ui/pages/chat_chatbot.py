@@ -3,10 +3,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
 
-# --------------------------------------------------
-# CONFIG
-# --------------------------------------------------
 
+# CONFIG
 st.set_page_config(
     page_title="ChatBot do Calouro",
     page_icon="🎓",
@@ -20,34 +18,29 @@ sys.path.append(str(ROOT_DIR))
 
 from app.services.chatbot_service import ChatbotService
 
-# --------------------------------------------------
-# SERVICE
-# --------------------------------------------------
 
+# SERVICE
 @st.cache_resource
 def get_chatbot():
     return ChatbotService()
 
 chatbot = get_chatbot()
 
-# --------------------------------------------------
-# SESSION
-# --------------------------------------------------
 
+# SESSION
 nome = st.session_state.get("nome")
 user_id = st.session_state.get("user_id")
 
 if not nome or not user_id:
     st.error("Sessão não encontrada. Volte para a tela inicial.")
+    st.switch_page("streamlit_app.py")
     st.stop()
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# --------------------------------------------------
-# CSS
-# --------------------------------------------------
 
+# CSS
 st.markdown("""
 <style>
 
@@ -124,10 +117,8 @@ html {
 </style>
 """, unsafe_allow_html=True)
 
-# --------------------------------------------------
-# SIDEBAR
-# --------------------------------------------------
 
+# SIDEBAR
 with st.sidebar:
 
     st.markdown("## 🎓 ChatBot do Calouro")
@@ -159,10 +150,8 @@ with st.sidebar:
         st.session_state.messages = []
         st.rerun()
 
-# --------------------------------------------------
-# HEADER
-# --------------------------------------------------
 
+# HEADER
 st.markdown("""
 <div class="hero">
     <div class="hero-title">
@@ -175,10 +164,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# --------------------------------------------------
-# CHAT
-# --------------------------------------------------
 
+# CHAT
 for msg in st.session_state.messages:
 
     avatar = "👨‍🎓" if msg["role"] == "user" else "🤖"
@@ -189,9 +176,9 @@ for msg in st.session_state.messages:
     ):
         st.markdown(msg["content"])
 
-# --------------------------------------------------
+
 # INPUT
-# --------------------------------------------------
+
 
 question = st.chat_input(
     "Digite sua dúvida..."

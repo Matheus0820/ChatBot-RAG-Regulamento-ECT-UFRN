@@ -3,10 +3,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import streamlit as st
 
-# --------------------------------------------------
-# CONFIG
-# --------------------------------------------------
 
+# CONFIG
 st.set_page_config(
     page_title="ChatBot do Calouro",
     page_icon="🎓",
@@ -18,10 +16,8 @@ load_dotenv(ROOT_DIR / ".env")
 
 sys.path.append(str(ROOT_DIR))
 
-# --------------------------------------------------
-# CSS
-# --------------------------------------------------
 
+# CSS
 st.markdown("""
 <style>
 
@@ -96,10 +92,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --------------------------------------------------
-# HEADER
-# --------------------------------------------------
 
+# HEADER
 st.html("""
 <div class="hero-card">
 
@@ -115,10 +109,8 @@ st.html("""
 </div>
 """)
 
-# --------------------------------------------------
-# FORMULÁRIO
-# --------------------------------------------------
 
+# FORMULÁRIO
 with st.form("login_form"):
 
     nome = st.text_input(
@@ -136,10 +128,8 @@ with st.form("login_form"):
         use_container_width=True
     )
 
-# --------------------------------------------------
-# LOGIN
-# --------------------------------------------------
 
+# LOGIN
 if entrar:
 
     nome = nome.strip()
@@ -162,12 +152,12 @@ if entrar:
         "pages/chat_chatbot.py"
     )
 
-# --------------------------------------------------
-# FOOTER
-# --------------------------------------------------
 
+# FOOTER
 st.markdown("""
 <div class="footer">
-Universidade Federal do Rio Grande do Norte • UFRN
+Universidade Federal do Rio Grande do Norte • UFRN 
+<br>
+Escola de Ciência e Tecnologia • ECT/UFRN
 </div>
 """, unsafe_allow_html=True)
