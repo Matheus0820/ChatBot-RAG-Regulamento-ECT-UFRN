@@ -35,8 +35,85 @@ Esse tipo de arquitetura reduz alucinações do modelo e melhora a qualidade das
 
 # Estrutura do Projeto
 ## Pasta de aplicação (app)
+```mermaid
+---
+config:
+  theme: neo
+  layout: dagre
+---
+graph TB
+
+    app["📁 app"]
+
+    subgraph CORE ["📁 core"]
+        core_desc["Configurações do projeto"]
+    end
+
+    subgraph DATABASE ["📁 database"]
+        chat_repository["📄 chat_repository.py"]
+    end
+
+    subgraph LLM ["📁 llm"]
+        history["📄 history.py"]
+        prompt_build["📄 prompt_build.py"]
+        prompts["📄 prompts.yaml"]
+
+        subgraph MODELS ["📁 models"]
+            groq_model["📄 groq_model.py"]
+        end
+    end
+
+    subgraph RAG ["📁 rag"]
+        chunking["📄 chunking.py"]
+        docs_read["📄 docs_read.py"]
+        embeddings["📄 embeddings.py"]
+        pipeline["📄 pipeline.py"]
+        retriever["📄 retriever.py"]
+        vectorstore["📄 vectorstore.py"]
+    end
+
+    subgraph SERVICES ["📁 services"]
+        chatbot_service["📄 chatbot_service.py"]
+    end
+
+    app --> CORE
+    app --> DATABASE
+    app --> LLM
+    app --> RAG
+    app --> SERVICES
+
+    classDef folder fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000;
+    classDef file fill:#f8fafc,stroke:#64748b,color:#000;
+
+    class CORE,DATABASE,LLM,MODELS,RAG,SERVICES folder;
+    class chat_repository,groq_model,history,prompt_build,prompts,chunking,docs_read,embeddings,pipeline,retriever,vectorstore,chatbot_service,core_desc file;
+```
 
 ## Pasta de integração com a interface WEB (ui)
+```mermaid
+---
+config:
+  theme: neo
+  layout: dagre
+---
+flowchart TB
+ subgraph STREAMLIT["📁 .streamlit"]
+        config["📄 config.toml"]
+  end
+ subgraph PAGES["📁 pages"]
+        chat["📄 chat_chatbot.py"]
+  end
+    ui["📁 ui"] --> app["📄 streamlit_app.py"] & STREAMLIT & PAGES
+
+     config:::file
+     chat:::file
+     app:::file
+     STREAMLIT:::folder
+     PAGES:::folder
+    classDef folder fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#000
+    classDef file fill:#f8fafc,stroke:#64748b,color:#000
+    style ui stroke-width:2px,stroke-dasharray: 0
+```
 
 ---
 
