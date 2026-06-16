@@ -115,6 +115,54 @@ flowchart TB
     style ui stroke-width:2px,stroke-dasharray: 0
 ```
 
+## Estrutura completa do projeto:
+```text
+.
+├── app/
+│   ├── core/
+│   ├── database/
+│   │   └── chat_repository.py
+│   ├── llm/
+│   │   ├── models/
+│   │   │   └── groq_model.py
+│   │   ├── history.py
+│   │   ├── prompt_build.py
+│   │   └── prompts.yaml
+│   ├── rag/
+│   │   ├── chunking.py
+│   │   ├── docs_read.py
+│   │   ├── embeddings.py
+│   │   ├── pipeline.py
+│   │   ├── retriever.py
+│   │   └── vectorstore.py
+│   └── services/
+│       └── chatbot_service.py
+├── base_dados/
+│   ├── contatos.txt
+│   ├── coordenacao_cet.txt
+│   ├── direcao_ect.txt
+│   ├── enfases.txt
+│   ├── indices_academicos.txt
+│   ├── midias_sociais.txt
+│   ├── notas_aprovacao.txt
+│   ├── programa_tutoria.txt
+│   ├── regulamento.txt
+│   ├── reposicao.txt
+│   └── semana_de_cet.txt
+├── database/
+│   └── chroma.sqlite3
+├── ui/
+│   ├── .streamlit/
+│   │   └── config.toml
+│   ├── pages/
+│   │   └── chat_chatbot.py
+│   └── streamlit_app.py
+├── .env.exemple
+├── chatbot.db
+├── generate_database.py
+└── requirements.txt
+```
+
 ---
 
 # Rodando o projeto
